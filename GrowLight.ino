@@ -20,6 +20,7 @@
 #define DURATION_BLINK 300
 unsigned long DURATION_HOUR = 1000L*60L*60L;  // avoid delay() overflow errors
 //#define DURATION_HOUR 1000L*10L
+const unsigned long int TIME_CHUNK_SIZE = 1000L*60L;
 
 // create objects of the appropriate types for the connected LED
 RgbLedCommonCathode led_rgb1(LED1_PIN_RED, LED1_PIN_GREEN, LED1_PIN_BLUE);
@@ -43,6 +44,19 @@ void setup() {
 
   led_rgb1.test();
   led_rgb1.setColor(Color::NONE);
+}
+
+/* Since we wait for longer times than the delay() function can
+ *  process, use this function to sleep for O(hour)
+ */
+void wait(const unsigned long time_to_wait) {
+  unsigned long remaining_delay = time_to_wait;
+  unsigned long chunk = min(TIME_CHUNK_SIZE, time_to_wait);
+  
+  while (remaining_delay > 0L) {
+    remaining_delay -= chunk;
+    delay(chunk);
+  }
 }
 
 void quickComplements() {
@@ -69,7 +83,7 @@ void quickComplements() {
   led_rgb1.setColor(Color::MAGENTA);
   delay(DURATION_BLINK);    
  
-  led_rgb1.setColor(Color::WHITE);
+  led_rgb1.setColor(Color::RGB_WHITE);
   delay(DURATION_BLINK);       
 }
 
@@ -77,77 +91,77 @@ void loop() {
   // 4 hours of morning light
   quickComplements();
   led_rgb1.setColor(Color::BLUE);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
   led_rgb1.setColor(Color::CYAN);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
   led_rgb1.setColor(Color::CYAN);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
    
   // 5 hours of full light
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
 
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
 
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
 
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
 
   quickComplements();
-  led_rgb1.setColor(Color::WHITE);
-  delay(DURATION_HOUR);
+  led_rgb1.setColor(Color::RGB_WHITE);
+  wait(DURATION_HOUR);
 
   // 4 hours of dusk
   quickComplements();
   led_rgb1.setColor(Color::YELLOW);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
   led_rgb1.setColor(Color::YELLOW);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
   led_rgb1.setColor(Color::MAGENTA);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   quickComplements();
   led_rgb1.setColor(Color::MAGENTA);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   // 3 hours of twilight
   quickComplements();
   led_rgb1.setColor(Color::RED);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   led_rgb1.setColor(Color::RED);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
 
   led_rgb1.setColor(Color::RED);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
  
   // 8 hours of night 
   led_rgb1.setColor(Color::NONE);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
-  delay(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
+  wait(DURATION_HOUR);
 }
