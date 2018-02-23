@@ -53,10 +53,11 @@ void wait(const unsigned long time_to_wait) {
   unsigned long remaining_delay = time_to_wait;
   unsigned long chunk = min(TIME_CHUNK_SIZE, time_to_wait);
   
-  while (remaining_delay > 0L) {
+  while (remaining_delay >= chunk) {
     remaining_delay -= chunk;
     delay(chunk);
   }
+  delay(remaining_delay);
 }
 
 void quickComplements() {
