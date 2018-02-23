@@ -36,11 +36,11 @@ void setup() {
   #endif
   
   led_rgb1.setColor(Color::RED);
-  delay(10000);
+  delay(1000);
   led_rgb1.setColor(Color::GREEN);
-  delay(10000);
+  delay(1000);
   led_rgb1.setColor(Color::BLUE);
-  delay(10000);
+  delay(1000);
 
   led_rgb1.test();
   led_rgb1.setColor(Color::NONE);
